@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>GAINDE-AI – Détection et surveillance des fuites d’hydrocarbures offshore</title>
+<title>GAINDE-AI – Real-time offshore hydrocarbon leak detection</title>
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 --bg:#f3f6f5;--card:#fff;--tx:#0f1f1b;--mut:#5b6b66;--ac:#0a8f6a;--bd:#d5dfdb;--crit:#c0392b;--warn:#c27c0e;--ok:#0a8f6a}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1517;--card:#13222a;--tx:#e8f2ef;--mut:#8fa6a0;--ac:#19c58f;--bd:#23383f;--crit:#ff6b5b;--warn:#f0b04a;--ok:#19c58f}}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*:before,*:after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55}
 header{padding:20px 16px 8px;max-width:1000px;margin:auto}
-h1{font-size:1.5rem;margin:0}h1 span{color:var(--ac)}
+h1{font-size:1.6rem;margin:0}h1 span{color:var(--ac)}
 .sub{color:var(--mut);margin:4px 0 0;font-size:.95rem}
 nav{display:flex;gap:8px;flex-wrap:wrap;max-width:1000px;margin:12px auto;padding:0 16px}
 nav button{background:var(--card);color:var(--tx);border:1px solid var(--bd);padding:9px 14px;border-radius:8px;cursor:pointer;font-size:.9rem}
@@ -20,90 +20,108 @@ nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 main{max-width:1000px;margin:auto;padding:0 16px 40px}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:14px}
 .card h2{margin:0 0 8px;font-size:1.05rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
 .kpi{border:1px solid var(--bd);border-radius:10px;padding:10px 12px}
 .kpi small{color:var(--mut);display:block}.kpi b{font-size:1.1rem}
 button.act{background:var(--ac);color:#fff;border:0;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:.95rem}
 .tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.88rem}
 th,td{padding:8px 10px;border-bottom:1px solid var(--bd);text-align:left;white-space:nowrap}
 th{background:var(--ac);color:#fff}
-.Critique{color:var(--crit);font-weight:700}.Alerte{color:var(--warn);font-weight:700}.Normale{color:var(--ok);font-weight:700}
+.Critical{color:var(--crit);font-weight:700}.Warning{color:var(--warn);font-weight:700}.Normal{color:var(--ok);font-weight:700}
 canvas{width:100%;height:240px;display:block}
 .lg{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem;color:var(--mut);margin-top:6px}
 .lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
 .sec{display:none}.sec.on{display:block}
 .note{font-size:.82rem;color:var(--mut)}
 .badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.8rem;border:1px solid var(--bd)}
+ul{margin:6px 0;padding-left:20px}
 </style>
 </head>
 <body>
 <header>
 <h1>GAINDE<span>-AI</span></h1>
-<p class="sub">Gestion Automatisée d’Informations et de Données Environnementales par IA<br>Plateforme de détection et de surveillance en temps réel des fuites d’hydrocarbures offshore</p>
+<p class="sub">Automated Management of Environmental Information and Data using AI<br>Real-time hydrocarbon leak detection and monitoring platform for offshore facilities</p>
 </header>
 <nav>
-<button class="on" data-t="home">Accueil</button>
-<button data-t="det">Détection ponctuelle</button>
-<button data-t="live">Surveillance en temps réel</button>
+<button class="on" data-t="home">Home</button>
+<button data-t="det">Spot detection</button>
+<button data-t="live">Real-time monitoring</button>
+<button data-t="about">About &amp; roadmap</button>
 </nav>
 <main>
 <section id="home" class="sec on">
-<div class="card"><h2>Accès aux données</h2>
-<p>Choisissez votre profil pour personnaliser l’affichage (réglementation ou opérations).</p>
+<div class="card"><h2>The problem</h2>
+<p>An undetected offshore leak can cost an operator and a country hundreds of billions of XOF within months: production shutdown, repair, suspension of maritime activity, sea cleanup and compensation of coastal populations. Detection is usually late and reactive.</p></div>
+<div class="card"><h2>Our approach</h2>
+<p>IoT sensors installed on wellheads, manifolds, pumps and safety valves stream concentration, pressure, temperature and turbidity data. An AI layer scores each reading and raises an alert before a small anomaly becomes a disaster: from late reaction to immediate, proactive anticipation.</p>
+<p class="note">Prototype version: the sensor readings shown in this demo are simulated.</p></div>
+<div class="card"><h2>Data access by profile</h2>
 <div class="grid">
-<div class="kpi"><small>Gouvernement (MEPM / METE / PETROSEN)</small><b>Audit, réglementation, urgences</b></div>
-<div class="kpi"><small>Société pétrolière</small><b>Efficacité, prédictif, conformité</b></div>
+<div class="kpi"><small>Government (MEPM / METE / PETROSEN)</small><b>Audit, regulation, emergency response</b></div>
+<div class="kpi"><small>Oil &amp; gas companies</small><b>Efficiency, predictive maintenance, compliance</b></div>
 </div></div>
-<div class="card"><h2>Pourquoi GAINDE-AI ?</h2>
-<p>Une fuite non détectée coûte en quelques mois plus de 710 milliards XOF (arrêt de production, réparation, suspension de l’activité maritime). GAINDE-AI remplace la réaction tardive par une anticipation immédiate et proactive grâce aux capteurs IoT et à l’intelligence artificielle.</p>
-<p class="note">Version de démonstration : les données capteurs affichées sont simulées.</p></div>
-<div class="card"><h2>Sources et seuils</h2>
+<div class="card"><h2>Sources &amp; thresholds</h2>
 <div class="grid">
-<div class="kpi"><small>Concentration (hydrocarbures)</small><b>&lt; 15 ppm</b></div>
-<div class="kpi"><small>Température</small><b>&lt; 35 °C</b></div>
-<div class="kpi"><small>Pression</small><b>100 – 180 bar</b></div>
-<div class="kpi"><small>Turbidité</small><b>&lt; 25 NTU</b></div>
+<div class="kpi"><small>Hydrocarbon concentration</small><b>&lt; 15 ppm</b></div>
+<div class="kpi"><small>Temperature</small><b>&lt; 35 °C</b></div>
+<div class="kpi"><small>Pressure</small><b>100 – 180 bar</b></div>
+<div class="kpi"><small>Turbidity</small><b>&lt; 25 NTU</b></div>
 </div></div>
 </section>
 
 <section id="det" class="sec">
-<div class="card"><h2>Détection ponctuelle</h2>
-<p>Lancez une analyse IA sur les données capteurs simulées.</p>
-<button class="act" id="run">Lancer l’analyse IA</button>
+<div class="card"><h2>Spot detection</h2>
+<p>Run an AI analysis on the simulated sensor data. Results are ranked by leak probability.</p>
+<button class="act" id="run">Run AI analysis</button>
 <p id="st" class="note"></p></div>
-<div class="card tw"><table><thead><tr><th>Capteur</th><th>Emplacement (zone)</th><th>Coordonnées</th><th>Valeur</th><th>Paramètre</th><th>Probabilité IA</th><th>Statut</th></tr></thead><tbody id="tb"></tbody></table></div>
+<div class="card tw"><table><thead><tr><th>Sensor</th><th>Location (zone)</th><th>Coordinates</th><th>Value</th><th>Parameter</th><th>AI probability</th><th>Status</th></tr></thead><tbody id="tb"></tbody></table></div>
 </section>
 
 <section id="live" class="sec">
-<div class="card"><h2>Surveillance en temps réel <span class="badge" id="lv">● en direct</span></h2>
+<div class="card"><h2>Real-time monitoring <span class="badge">● live (simulated)</span></h2>
+<div class="grid" style="margin-bottom:12px">
+<div class="kpi"><small>Events logged</small><b id="k1">0</b></div>
+<div class="kpi"><small>Warnings</small><b id="k2">0</b></div>
+<div class="kpi"><small>Critical alerts</small><b id="k3">0</b></div>
+</div>
 <canvas id="cv" width="900" height="240"></canvas>
-<div class="lg"><span><i style="background:#f0b04a"></i>Concentration (ppm)</span><span><i style="background:#3b9cff"></i>Pression (bar)</span><span><i style="background:#19c58f"></i>Température (°C)</span><span><i style="background:#c06bff"></i>Turbidité (NTU)</span></div></div>
-<div class="card tw"><h2>Historique des événements récents</h2><table><thead><tr><th>Heure</th><th>Capteur</th><th>Zone</th><th>Paramètre</th><th>Valeur</th><th>Probabilité IA</th><th>État</th></tr></thead><tbody id="hs"></tbody></table></div>
+<div class="lg"><span><i style="background:#f0b04a"></i>Concentration (ppm)</span><span><i style="background:#3b9cff"></i>Pressure (bar)</span><span><i style="background:#19c58f"></i>Temperature (°C)</span><span><i style="background:#c06bff"></i>Turbidity (NTU)</span></div></div>
+<div class="card tw"><h2>Recent event history</h2><table><thead><tr><th>Time</th><th>Sensor</th><th>Zone</th><th>Parameter</th><th>Value</th><th>AI probability</th><th>State</th></tr></thead><tbody id="hs"></tbody></table></div>
+</section>
+
+<section id="about" class="sec">
+<div class="card"><h2>Architecture</h2>
+<ul><li>Sensor data integration (IoT)</li><li>AI implementation (anomaly scoring)</li><li>Platform interface design</li><li>Operational modes (alerting, audit, reporting)</li><li>Execution and continuous improvement</li></ul></div>
+<div class="card"><h2>Current status and limits</h2>
+<ul><li>This demo uses simulated sensor streams, not real field data.</li><li>The AI score shown here is a threshold-deviation model used to demonstrate the interface; it is not a trained production model.</li><li>No real leak detection claim is made at this stage.</li></ul></div>
+<div class="card"><h2>Roadmap</h2>
+<ul><li>Continuous data creation to train and validate the model on real and open Earth observation data</li><li>Satellite layer to cross-check sensor alerts with remote sensing of the sea surface (planned, not yet implemented)</li><li>Evolution towards an onshore platform</li><li>International deployment and inter-industry collaboration</li></ul></div>
+<div class="card"><h2>Team</h2>
+<p>Cheikh Moustapha Waly Diouf (geomatics), Saydou Ly, Moustapha Ndiaye and Khadidiatou Diakhate (geology) – Université Amadou Mahtar Mbow, Dakar, Senegal.</p></div>
 </section>
 </main>
 <script>
 var S=[
-{n:"C-SENSE",z:"Têtes de puits et collecteurs",c:"14.50°N, 17.50°W",p:"Concentration",u:"ppm",lim:15,min:2,max:70},
-{n:"P-PRESS",z:"Collecteurs principaux",c:"14.51°N, 17.51°W",p:"Pression",u:"bar",lo:100,hi:180,min:90,max:200},
-{n:"T-TEMP",z:"Pompes et séparateurs",c:"14.52°N, 17.52°W",p:"Température",u:"°C",lim:35,min:18,max:45},
-{n:"O-TURB",z:"Vannes de sécurité et pompes",c:"14.53°N, 17.53°W",p:"Turbidité",u:"NTU",lim:25,min:5,max:50}
+{n:"C-SENSE",z:"Wellheads and manifolds",c:"14.50°N, 17.50°W",p:"Concentration",u:"ppm",lim:15,min:2,max:70},
+{n:"P-PRESS",z:"Main collectors",c:"14.51°N, 17.51°W",p:"Pressure",u:"bar",lo:100,hi:180,min:90,max:200},
+{n:"T-TEMP",z:"Pumps and separators",c:"14.52°N, 17.52°W",p:"Temperature",u:"°C",lim:35,min:18,max:45},
+{n:"O-TURB",z:"Safety valves and pumps",c:"14.53°N, 17.53°W",p:"Turbidity",u:"NTU",lim:25,min:5,max:50}
 ];
 function r(a,b){return a+Math.random()*(b-a)}
-function ev(s,forceBad){
- var v,prob,st;
- if(s.lo){v=forceBad?r(190,200):r(110,175);var d=v>s.hi?(v-s.hi)/(s.hi*.1):(v<s.lo?(s.lo-v)/(s.lo*.1):0);}
- else{v=forceBad?r(s.lim*1.4,s.max):r(s.min,s.lim*.9);var d=v>s.lim?(v-s.lim)/s.lim:0;}
- prob=d>0?Math.min(99.9,70+d*30):Math.max(2,r(2,12));
- st=prob>85?"Critique":prob>50?"Alerte":"Normale";
- return {s:s,v:v,prob:prob,st:st};
+function ev(s,bad){
+ var v,d;
+ if(s.lo){v=bad?r(190,200):r(110,175);d=v>s.hi?(v-s.hi)/(s.hi*.1):(v<s.lo?(s.lo-v)/(s.lo*.1):0);}
+ else{v=bad?r(s.lim*1.4,s.max):r(s.min,s.lim*.9);d=v>s.lim?(v-s.lim)/s.lim:0;}
+ var prob=d>0?Math.min(99.9,70+d*30):Math.max(2,r(2,12));
+ return {s:s,v:v,prob:prob,st:prob>85?"Critical":prob>50?"Warning":"Normal"};
 }
 function row(e){return "<tr><td>"+e.s.n+"</td><td>"+e.s.z+"</td><td>"+e.s.c+"</td><td class='"+e.st+"'>"+e.v.toFixed(2)+" "+e.s.u+"</td><td>"+e.s.p+"</td><td class='"+e.st+"'>"+e.prob.toFixed(1)+" %</td><td class='"+e.st+"'>"+e.st+"</td></tr>";}
 document.getElementById("run").onclick=function(){
- var b=document.getElementById("st");b.textContent="Analyse en cours…";
+ var b=document.getElementById("st");b.textContent="Analysis running…";
  setTimeout(function(){
   var out=S.map(function(s,i){return ev(s,Math.random()<.5||i===0);}).sort(function(a,b){return b.prob-a.prob});
   document.getElementById("tb").innerHTML=out.map(row).join("");
-  b.textContent="Analyse IA terminée. Consultez le tableau.";
+  b.textContent="AI analysis complete. See the table below.";
  },700);
 };
 var tabs=document.querySelectorAll("nav button");
@@ -112,7 +130,7 @@ function show(t){tabs.forEach(function(b){b.classList.toggle("on",b.dataset.t===
  try{history.replaceState(null,"","#"+t)}catch(e){}
  if(t==="live")draw();}
 tabs.forEach(function(b){b.onclick=function(){show(b.dataset.t)}});
-var D={c:[],p:[],t:[],u:[],h:[]},N=30;
+var D={c:[],p:[],t:[],u:[],h:[]},N=30,cnt=[0,0,0];
 var cols={c:"#f0b04a",p:"#3b9cff",t:"#19c58f",u:"#c06bff"};
 var sc={c:[0,70],p:[90,200],t:[15,45],u:[0,50]};
 function tick(){
@@ -120,10 +138,12 @@ function tick(){
  c=Math.max(2,Math.min(65,c+r(-2,2.2)));p=Math.max(105,Math.min(178,p+r(-6,6)));
  t=Math.max(20,Math.min(34,t+r(-.8,.8)));u=Math.max(6,Math.min(24,u+r(-1.2,1.2)));
  D.c.push(c);D.p.push(p);D.t.push(t);D.u.push(u);
- for(var k in D){if(k!=="h"&&D[k].length>N)D[k].shift();}
- var s=S[Math.floor(Math.random()*4)];var e=ev(s,Math.random()<.12);
- D.h.unshift({t:new Date().toLocaleTimeString("fr-FR"),e:e});if(D.h.length>8)D.h.pop();
+ ["c","p","t","u"].forEach(function(k){if(D[k].length>N)D[k].shift();});
+ var s=S[Math.floor(Math.random()*4)],e=ev(s,Math.random()<.12);
+ cnt[0]++;if(e.st==="Warning")cnt[1]++;if(e.st==="Critical")cnt[2]++;
+ D.h.unshift({t:new Date().toLocaleTimeString("en-GB"),e:e});if(D.h.length>8)D.h.pop();
  document.getElementById("hs").innerHTML=D.h.map(function(x){var e=x.e;return "<tr><td>"+x.t+"</td><td>"+e.s.n+"</td><td>"+e.s.z+"</td><td>"+e.s.p+"</td><td class='"+e.st+"'>"+e.v.toFixed(2)+" "+e.s.u+"</td><td class='"+e.st+"'>"+e.prob.toFixed(1)+" %</td><td class='"+e.st+"'>"+e.st+"</td></tr>"}).join("");
+ document.getElementById("k1").textContent=cnt[0];document.getElementById("k2").textContent=cnt[1];document.getElementById("k3").textContent=cnt[2];
  if(document.getElementById("live").classList.contains("on"))draw();
 }
 function draw(){
@@ -135,7 +155,7 @@ function draw(){
 }
 for(var i=0;i<N;i++)tick();
 setInterval(tick,2000);
-var h=(location.hash||"").slice(1);if(h==="det"||h==="live")show(h);
+var h=(location.hash||"").slice(1);if(h==="det"||h==="live"||h==="about")show(h);
 </script>
 </body>
 </html>
